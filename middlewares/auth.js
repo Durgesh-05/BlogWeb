@@ -9,16 +9,8 @@ function validateAccessToken() {
       next();
     } catch (error) {
       console.log(error);
-      if (error.name === "TokenExpiredError") {
-        res.clearCookie("accessToken");
-        return res.render("homepage", {
-          message: "Token Expired",
-        });
-      } else {
-        return res.render("homepage", {
-          message: "Invalid token",
-        });
-      }
+      res.clearCookie("accessToken");
+      return res.redirect("/");
     }
   };
 }

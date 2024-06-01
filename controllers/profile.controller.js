@@ -18,12 +18,18 @@ async function handleDeleteBlogFromProfile(req, res) {
 }
 
 async function handleEditUserProfile(req, res) {
-  const interest = req.body.interest.split(",");
-  const { filename } = req.file;
-  await User.findByIdAndUpdate(
-    { _id: req.user._id },
-    { interest: interest, profileImageUrl: `/uploads/${filename}` }
-  );
+  const updateData = {};
+  if (req.body.interest) {
+    updateData.interest = req.body.interest.split(",");
+  }
+  if (req.file) {
+    const { filename } = req.file;
+    updateData.profileImageUrl = `/uploads/${filename}`;
+  }
+
+  if (Object.keys(updateData).length > 0) {
+    await User.findByIdAndUpdate({ _id: req.user._id }, updateData);
+  }
   res.redirect(`/api/v1/profile/${req.user._id}`);
 }
 

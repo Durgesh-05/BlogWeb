@@ -61,7 +61,7 @@ async function handleUserLike(req, res) {
     return res.redirect(`/api/v1/blog/${req.params.blogId}`);
   await Like.create({
     blogId: req.params.blogId,
-    createdBy: req.user._id,
+    likedBy: req.user._id,
   });
 
   await Blog.updateOne({ _id: req.params.blogId }, { $inc: { noOfLikes: 1 } });
