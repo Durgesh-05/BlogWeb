@@ -1,7 +1,7 @@
 import path from "path";
 import dotenv from "dotenv";
 import { connectMongoDB } from "./connection.js";
-import userRoute from "../routes/user.route.js";
+import userRoute from "./routes/user.route.js";
 import blogRoute from "./routes/blog.route.js";
 import profileRoute from "./routes/profile.route.js";
 import searchRoute from "./routes/search.route.js";
