@@ -14,7 +14,7 @@ dotenv.config({
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
-connectMongoDB(`${process.env.MONGO_URI}/blog-website`)
+connectMongoDB(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB Connection Succeed!! ");
     app.listen(process.env.PORT, () =>
