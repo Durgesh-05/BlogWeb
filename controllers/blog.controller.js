@@ -1,40 +1,41 @@
-import { Blog } from "../models/blog.model.js";
-import { Comment } from "../models/comment.model.js";
-import { Like } from "../models/like.model.js";
+import { Blog } from '../models/blog.model.js';
+import { Comment } from '../models/comment.model.js';
+import { Like } from '../models/like.model.js';
+import { uploadOnCloudinary } from '../services/cloudinary.js';
 function renderBlogPage(req, res) {
-  res.render("blog", {
+  res.render('blog', {
     user: req.user,
   });
 }
 
 async function handleBlogPost(req, res) {
   const { title, content } = req.body;
-  const { filename } = req.file;
-
+  const imagePath = req.file.path;
+  const coverImage = await uploadOnCloudinary(imagePath);
   await Blog.create({
     title: title,
     content: content,
-    coverImageURL: `/uploads/${filename}`,
+    coverImageURL: coverImage.url,
     author: req.user._id,
   });
 
-  res.redirect("/");
+  res.redirect('/');
 }
 
 async function renderBlogPostPage(req, res) {
   try {
-    const blog = await Blog.findById(req.params.id).populate("author");
+    const blog = await Blog.findById(req.params.id).populate('author');
     const comments = await Comment.find({ blogId: req.params.id }).populate(
-      "createdBy"
+      'createdBy'
     );
 
-    return res.render("blogpost", {
+    return res.render('blogpost', {
       user: req.user,
       blog,
       comments,
     });
   } catch (error) {
-    console.log("Internal Server Error: ", error);
+    console.log('Internal Server Error: ', error);
   }
 }
 
