@@ -5,8 +5,8 @@
   "description": "Blog website using Express and Ejs",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon -r dotenv/config --experimental-json-modules index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
   },
   "author": "Durgesh Dubey",
   "license": "ISC",
