@@ -12,7 +12,7 @@ dotenv.config({
 });
 
 app.set("view engine", "ejs");
-app.set("views", "./views");
+app.set("views", path.resolve("./views"));
 
 connectMongoDB(process.env.MONGO_URI)
   .then(() => {
